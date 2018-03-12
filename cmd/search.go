@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"strings"
+
 	"time"
 
 	"github.com/shanghai-edu/ldap-test-tool/g"
@@ -10,59 +10,21 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var userlist, filter string
-
 func init() {
-	searchUserCmd.Flags().StringVarP(&username, "username", "u", "", "the username for search (required)")
-	searchUserCmd.MarkFlagRequired("username")
-	searchMultiCmd.Flags().StringVarP(&userlist, "userlist", "u", "", "the userlist for search (required)")
-	searchMultiCmd.MarkFlagRequired("userlist")
-	searchFilterCmd.Flags().StringVarP(&filter, "filter", "f", "", "the filter for search (required)")
-	searchFilterCmd.MarkFlagRequired("filter")
 	rootCmd.AddCommand(searchCmd)
 	searchCmd.AddCommand(searchUserCmd)
 	searchCmd.AddCommand(searchMultiCmd)
 	searchCmd.AddCommand(searchFilterCmd)
 }
-func getLongestKeyLen(m map[string][]string) int {
-	l := 0
-	for key, _ := range m {
-		if len(key) > l {
-			l = len(key)
-		}
-	}
-	return l
-}
-
-func addSpace(s string, l int) string {
-	for i := 0; i < l; i++ {
-		s = s + " "
-	}
-	return s
-}
-
-func PrintSearchResult(result models.LDAP_RESULT) {
-	fmt.Println("")
-	fmt.Printf("DN: %s \n", result.DN)
-	fmt.Println("Attributes:")
-	longestKeyLenth := getLongestKeyLen(result.Attributes)
-	for key, value := range result.Attributes {
-		if len(key) < longestKeyLenth {
-			key = addSpace(key, (longestKeyLenth - len(key)))
-		}
-		valueString := strings.Join(value, ";")
-		fmt.Printf(" -- %s : %s \n", key, valueString)
-	}
-	fmt.Println("")
-
-}
 
 var searchCmd = &cobra.Command{
-	Use:   "search",
-	Short: "Search test",
-	Long:  `usage, ldap-test-tool search [command]`,
+	Use:       "search",
+	Short:     "Search test",
+	Long:      `Usage: ldap-test-tool search [command]`,
+	Args:      cobra.OnlyValidArgs,
+	ValidArgs: []string{searchUserCmd.Use, searchFilterCmd.Use, searchMultiCmd.Use},
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf(`
+		fmt.Println(`
   filter      Search by filter
   multi       Search multi users
   user        Search single user
@@ -73,9 +35,12 @@ var searchCmd = &cobra.Command{
 var searchUserCmd = &cobra.Command{
 	Use:   "user",
 	Short: "Search single user",
-	Long:  `usage, ldap-test-tool search user -u useranem`,
+	Long:  `Usage: ldap-test-tool search user [username]`,
+	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		action := "Search"
+
+		username := args[0]
 		startTime := time.Now()
 		PrintStart(action)
 
@@ -95,21 +60,24 @@ var searchUserCmd = &cobra.Command{
 var searchMultiCmd = &cobra.Command{
 	Use:   "multi",
 	Short: "Search multi users",
-	Long:  `usage, ldap-test-tool search multi -u userlist`,
+	Long:  `Usage: ldap-test-tool search multi [filename]`,
+	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
+		action := "Multi Search"
+
+		userlist := args[0]
 		searchUsers, err := g.GetLines(userlist)
 		if err != nil {
 			fmt.Printf("Read file %s failed: %s \n", userlist, err.Error())
 			return
 		}
-		action := "Multi Search"
 		startTime := time.Now()
 		PrintStart(action)
 
 		res, err := models.Multi_Search_User(g.Config().Ldap, searchUsers)
 
 		if err != nil {
-			fmt.Printf("%s Search failed: %s \n", username, err.Error())
+			fmt.Printf("Multi Search failed: %s \n", err.Error())
 			PrintEnd(action, startTime)
 			return
 		}
@@ -132,9 +100,12 @@ var searchMultiCmd = &cobra.Command{
 var searchFilterCmd = &cobra.Command{
 	Use:   "filter",
 	Short: "Search by filter",
-	Long:  `usage, ldap-test-tool search filter -f (cn=测试*)`,
+	Long:  `Usage: ldap-test-tool search filter [searchFilter]`,
+	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		action := "Search By Filter"
+
+		filter := args[0]
 		startTime := time.Now()
 		PrintStart(action)
 

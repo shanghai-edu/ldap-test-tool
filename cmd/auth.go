@@ -9,38 +9,20 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var username, password, users string
-
-func PrintStart(action string) {
-	fmt.Printf("LDAP %s Start \n", action)
-	fmt.Println("==================================")
-	fmt.Println("")
-}
-
-func PrintEnd(action string, startTime time.Time) {
-	endTime := time.Now()
-	fmt.Println("")
-	fmt.Println("==================================")
-	fmt.Printf("LDAP %s Finished, Time Usage %s \n", action, endTime.Sub(startTime))
-}
 func init() {
-	authUserCmd.Flags().StringVarP(&username, "username", "u", "", "the username for auth(required)")
-	authUserCmd.Flags().StringVarP(&password, "password", "p", "", "the password for auth(required)")
-	authUserCmd.MarkFlagRequired("username")
-	authUserCmd.MarkFlagRequired("password")
-	authMultiCmd.Flags().StringVarP(&users, "users", "u", "", `users for auth, split username and password by "," (required)`)
-	authMultiCmd.MarkFlagRequired("users")
 	rootCmd.AddCommand(authCmd)
 	authCmd.AddCommand(authUserCmd)
 	authCmd.AddCommand(authMultiCmd)
 }
 
 var authCmd = &cobra.Command{
-	Use:   "auth",
-	Short: "Auth test",
-	Long:  `usage, ldap-test-tool auth [command]`,
+	Use:       "auth",
+	Short:     "Auth Test",
+	Long:      `Usage: ldap-test-tool auth [command]`,
+	Args:      cobra.OnlyValidArgs,
+	ValidArgs: []string{authUserCmd.Use, authMultiCmd.Use},
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf(`
+		fmt.Println(`
   multi       Multi auth test
   single      Single auth test
 `)
@@ -50,9 +32,14 @@ var authCmd = &cobra.Command{
 var authUserCmd = &cobra.Command{
 	Use:   "single",
 	Short: "Single auth test",
-	Long:  `usage, ldap-test-tool auth single -u useranem -p password`,
+	Long:  `Usage: ldap-test-tool auth single [username] [password]`,
+	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
 		action := "Auth"
+
+		username := args[0]
+		password := args[1]
+
 		startTime := time.Now()
 		PrintStart(action)
 
@@ -71,14 +58,17 @@ var authUserCmd = &cobra.Command{
 var authMultiCmd = &cobra.Command{
 	Use:   "multi",
 	Short: "Multi auth test",
-	Long:  `usage, ldap-test-tool auth multi -u users.txt`,
+	Long:  `Usage: ldap-test-tool auth multi [filename]`,
+	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		authUsers, err := g.GetUsers(users)
+		action := "Multi Auth"
+
+		userlist := args[0]
+		authUsers, err := g.GetUsers(userlist)
 		if err != nil {
-			fmt.Printf("Read file %s failed: %s \n", users, err.Error())
+			fmt.Printf("Read file %s failed: %s \n", userlist, err.Error())
 			return
 		}
-		action := "Multi Auth"
 		startTime := time.Now()
 		PrintStart(action)
 

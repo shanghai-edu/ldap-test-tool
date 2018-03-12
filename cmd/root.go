@@ -21,8 +21,8 @@ func initConfig() {
 
 var rootCmd = &cobra.Command{
 	Use:   "ldap-test-tool",
-	Short: "ldap-test-tool is a simple tool for auth test and search test",
-	Long: `ldap-test-tool is a simple tool for auth test and search test
+	Short: "ldap-test-tool is a simple tool for ldap test",
+	Long: `ldap-test-tool is a simple tool for ldap test
 build by shanghai-edu.
 Complete documentation is available at github.com/shanghai-edu/ldap-test-tool`,
 	Run: func(cmd *cobra.Command, args []string) {

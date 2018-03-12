@@ -16,6 +16,6 @@ var versionCmd = &cobra.Command{
 	Short: "Print the version number of ldap-test-tool",
 	Long:  `All software has versions. This is ldap-test-tool's`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("ldap-test-tool version : %s", g.VERSION)
+		fmt.Println("ldap-test-tool version : ", g.VERSION)
 	},
 }
