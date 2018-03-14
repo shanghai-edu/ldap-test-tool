@@ -8,7 +8,9 @@ import (
 func ConfigRouters() {
 	beego.Router("/api/v1/ldap/", &controllers.MainController{})
 	beego.Router("/api/v1/ldap/health", &controllers.HealthController{})
-	beego.Router("/api/v1/ldap/search", &controllers.SearchController{})
-	beego.Router("/api/v1/ldap/search/:username", &controllers.SearchUserController{})
-	beego.Router("/api/v1/ldap/auth/:username", &controllers.AuthController{})
+	beego.Router("/api/v1/ldap/search/filter/:filter", &controllers.SearchFilterController{})
+	beego.Router("/api/v1/ldap/search/user/:username", &controllers.SearchUserController{})
+	beego.Router("/api/v1/ldap/search/multi", &controllers.SearchMultiController{})
+	beego.Router("/api/v1/ldap/auth/single", &controllers.AuthSingleController{})
+	beego.Router("/api/v1/ldap/auth/multi", &controllers.AuthMultiController{})
 }

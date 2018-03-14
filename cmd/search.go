@@ -10,7 +10,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var csvFile bool
+
 func init() {
+	searchMultiCmd.Flags().BoolVarP(&csvFile, "file", "f", false, "output search to users.csv, failed search to failed.csv")
 	rootCmd.AddCommand(searchCmd)
 	searchCmd.AddCommand(searchUserCmd)
 	searchCmd.AddCommand(searchMultiCmd)
@@ -81,10 +84,27 @@ var searchMultiCmd = &cobra.Command{
 			PrintEnd(action, startTime)
 			return
 		}
+		if csvFile {
+			err = WriteUsersToCsv(res.Users, g.USERS_CSV)
+			if err != nil {
+				fmt.Printf("Open file %s failed: \n", g.USERS_CSV)
+				return
+			}
+			if len(res.Failed_Messages) > 0 {
+				err = WriteFailsToCsv(res.Failed_Messages, g.FAILED_CSV)
+				if err != nil {
+					fmt.Printf("Open file %s failed: \n", g.FAILED_CSV)
+					return
+				}
+			}
+			PrintEnd(action, startTime)
+			return
+		}
 		fmt.Println("Successed users:")
 		for _, user := range res.Users {
 			PrintSearchResult(user)
 		}
+
 		for _, failed_Message := range res.Failed_Messages {
 			fmt.Printf("%s : %s \n", failed_Message.Username, failed_Message.Message)
 		}

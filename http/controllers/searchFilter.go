@@ -6,7 +6,7 @@ import (
 	"github.com/shanghai-edu/ldap-test-tool/models"
 )
 
-type SearchController struct {
+type SearchFilterController struct {
 	beego.Controller
 }
 
@@ -15,9 +15,8 @@ type SearchResult struct {
 	Success bool                 `json:"success"`
 }
 
-func (this *SearchController) Get() {
-
-	searchFilter := this.GetString("filter")
+func (this *SearchFilterController) Get() {
+	searchFilter := this.Ctx.Input.Param(":filter")
 	results, err := models.Single_Search(g.Config().Ldap, searchFilter)
 	if err != nil {
 		var failedResult MsgResult

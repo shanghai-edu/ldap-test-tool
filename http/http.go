@@ -6,7 +6,7 @@ import (
 )
 
 func Start() {
-
+	beego.BConfig.CopyRequestBody = true
 	ConfigRouters()
 	beego.Run(g.Config().Http.Listen)
 }

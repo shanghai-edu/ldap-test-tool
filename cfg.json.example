@@ -1,0 +1,15 @@
+{
+    "ldap": {
+        "addr": "ldap.example.org:389",
+        "baseDn": "dc=example,dc=org",
+        "bindDn": "cn=manager,dc=example,dc=org",
+        "bindPass": "password",
+        "authFilter": "(&(uid=%s))",
+		"attributes": ["uid", "cn", "mail"],
+		"tls":        false,
+		"startTLS":   false
+    },
+	"http": {
+        "listen": "0.0.0.0:8888"
+    }
+}

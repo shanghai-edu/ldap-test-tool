@@ -1,25 +1,25 @@
 package models
 
 type User struct {
-	Username string
-	Password string
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type Multi_Auth_Result struct {
-	Successed       int
-	Failed          int
-	Failed_Messages []Failed_Message
+	Successed       int              `json:"successed"`
+	Failed          int              `json:"failed"`
+	Failed_Messages []Failed_Message `json:"failed_messages"`
 }
 
 type Multi_Search_User_Result struct {
-	Successed       int
-	Failed          int
-	Users           []LDAP_RESULT
-	Failed_Messages []Failed_Message
+	Successed       int              `json:"successed"`
+	Failed          int              `json:"failed"`
+	Users           []LDAP_RESULT    `json:"users"`
+	Failed_Messages []Failed_Message `json:"failed_messages"`
 }
 type Failed_Message struct {
-	Username string
-	Message  string
+	Username string `json:"username"`
+	Message  string `json:"message"`
 }
 
 func Multi_Auth(lc *LDAP_CONFIG, userlist []User) (result Multi_Auth_Result, err error) {
