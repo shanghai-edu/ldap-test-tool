@@ -36,11 +36,11 @@ openldap 配置示例
         "bindDn": "cn=manager,dc=example,dc=org",
         "bindPass": "password",
         "authFilter": "(&(uid=%s))",
-		"attributes": ["uid", "cn", "mail"],
-		"tls":        false,
-		"startTLS":   false
+        "attributes": ["uid", "cn", "mail"],
+        "tls":        false,
+        "startTLS":   false
     },
-	"http": {
+    "http": {
         "listen": "0.0.0.0:8888"
     }
 }
@@ -54,11 +54,11 @@ AD 配置示例
         "bindDn": "manager@example.org",
         "bindPass": "password",
         "authFilter": "(&(sAMAccountName=%s))",
-		"attributes": ["sAMAccountName", "displayName", "mail"],
-		"tls":        false,
-		"startTLS":   false
+        "attributes": ["sAMAccountName", "displayName", "mail"],
+        "tls":        false,
+        "startTLS":   false
     },
-	"http": {
+    "http": {
         "listen": "0.0.0.0:8888"
     }
 }
@@ -442,7 +442,8 @@ HTTP API 部分使用 [beego](https://github.com/astaxie/beego) 框架
 ```
 curl 示例
 ```
-# curl -X POST  -H 'Content-Type:application/json' -d '["qfeng","qfengtest","nofounduser"]' http://127.0.0.1:8888/api/v1/ldap/search/multi                                         {
+# curl -X POST  -H 'Content-Type:application/json' -d '["qfeng","qfengtest","nofounduser"]' http://127.0.0.1:8888/api/v1/ldap/search/multi
+{
   "success": true,
   "result": {
     "successed": 2,
@@ -497,7 +498,8 @@ curl 示例
 ```
 curl 示例
 ```
-# curl -X POST  -H 'Content-Type:application/json' -d '{"username":"qfeng","password":"123456"}' http://127.0.0.1:8888/api/v1/ldap/auth/single                              {
+# curl -X POST  -H 'Content-Type:application/json' -d '{"username":"qfeng","password":"123456"}' http://127.0.0.1:8888/api/v1/ldap/auth/single
+{
   "msg": "user 20150073 Auth Successed",
   "success": true
 }
@@ -515,7 +517,7 @@ curl 示例
 ```
 curl 示例
 ```
-curl -X POST  -H 'Content-Type:application/json' -d '[{"username":"qfeng","password":"123456"},{"username":"qfengtest","password":"1111111"}]' http://127.0.0.1:8888/api/v1/ldap/auth/multi
+# curl -X POST  -H 'Content-Type:application/json' -d '[{"username":"qfeng","password":"123456"},{"username":"qfengtest","password":"1111111"}]' http://127.0.0.1:8888/api/v1/ldap/auth/multi
 {
   "success": true,
   "result": {
