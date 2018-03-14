@@ -27,10 +27,10 @@ build by shanghai-edu.
 Complete documentation is available at github.com/shanghai-edu/ldap-test-tool`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(`
-  auth        Auth test
+  auth        Auth Test
   help        Help about any command
   http        Enable a http server for ldap-test-tool
-  search      Search test
+  search      Search Test
   version     Print the version number of ldap-test-tool
 		`)
 	},

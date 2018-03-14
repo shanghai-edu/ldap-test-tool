@@ -22,22 +22,22 @@ func init() {
 
 var searchCmd = &cobra.Command{
 	Use:       "search",
-	Short:     "Search test",
+	Short:     "Search Test",
 	Long:      `Usage: ldap-test-tool search [command]`,
 	Args:      cobra.OnlyValidArgs,
 	ValidArgs: []string{searchUserCmd.Use, searchFilterCmd.Use, searchMultiCmd.Use},
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(`
-  filter      Search by filter
-  multi       Search multi users
-  user        Search single user
+  filter      Search By Filter
+  multi       Search Multi Users
+  user        Search Single User
 `)
 	},
 }
 
 var searchUserCmd = &cobra.Command{
 	Use:   "user",
-	Short: "Search single user",
+	Short: "Search Single User",
 	Long:  `Usage: ldap-test-tool search user [username]`,
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
@@ -62,7 +62,7 @@ var searchUserCmd = &cobra.Command{
 
 var searchMultiCmd = &cobra.Command{
 	Use:   "multi",
-	Short: "Search multi users",
+	Short: "Search Multi Users",
 	Long:  `Usage: ldap-test-tool search multi [filename]`,
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
@@ -97,6 +97,7 @@ var searchMultiCmd = &cobra.Command{
 					return
 				}
 			}
+			fmt.Println("OutPut to csv successed")
 			PrintEnd(action, startTime)
 			return
 		}
@@ -119,7 +120,7 @@ var searchMultiCmd = &cobra.Command{
 
 var searchFilterCmd = &cobra.Command{
 	Use:   "filter",
-	Short: "Search by filter",
+	Short: "Search By Filter",
 	Long:  `Usage: ldap-test-tool search filter [searchFilter]`,
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {

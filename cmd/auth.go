@@ -23,15 +23,15 @@ var authCmd = &cobra.Command{
 	ValidArgs: []string{authUserCmd.Use, authMultiCmd.Use},
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(`
-  multi       Multi auth test
-  single      Single auth test
+  multi       Multi Auth Test
+  single      Single Auth Test
 `)
 	},
 }
 
 var authUserCmd = &cobra.Command{
 	Use:   "single",
-	Short: "Single auth test",
+	Short: "Single Auth Test",
 	Long:  `Usage: ldap-test-tool auth single [username] [password]`,
 	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
@@ -57,7 +57,7 @@ var authUserCmd = &cobra.Command{
 
 var authMultiCmd = &cobra.Command{
 	Use:   "multi",
-	Short: "Multi auth test",
+	Short: "Multi Auth Test",
 	Long:  `Usage: ldap-test-tool auth multi [filename]`,
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
