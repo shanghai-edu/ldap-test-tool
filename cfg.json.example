@@ -5,11 +5,11 @@
         "bindDn": "cn=manager,dc=example,dc=org",
         "bindPass": "password",
         "authFilter": "(&(uid=%s))",
-		"attributes": ["uid", "cn", "mail"],
-		"tls":        false,
-		"startTLS":   false
+        "attributes": ["uid", "cn", "mail"],
+        "tls":        false,
+        "startTLS":   false
     },
-	"http": {
+    "http": {
         "listen": "0.0.0.0:8888"
     }
 }
