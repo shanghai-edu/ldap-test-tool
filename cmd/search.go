@@ -23,7 +23,6 @@ func init() {
 var searchCmd = &cobra.Command{
 	Use:       "search",
 	Short:     "Search Test",
-	Long:      `Usage: ldap-test-tool search [command]`,
 	Args:      cobra.OnlyValidArgs,
 	ValidArgs: []string{searchUserCmd.Use, searchFilterCmd.Use, searchMultiCmd.Use},
 	Run: func(cmd *cobra.Command, args []string) {
@@ -36,9 +35,8 @@ var searchCmd = &cobra.Command{
 }
 
 var searchUserCmd = &cobra.Command{
-	Use:   "user",
+	Use:   "user [username]",
 	Short: "Search Single User",
-	Long:  `Usage: ldap-test-tool search user [username]`,
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		action := "Search"
@@ -61,9 +59,8 @@ var searchUserCmd = &cobra.Command{
 }
 
 var searchMultiCmd = &cobra.Command{
-	Use:   "multi",
+	Use:   "multi [filename]",
 	Short: "Search Multi Users",
-	Long:  `Usage: ldap-test-tool search multi [filename]`,
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		action := "Multi Search"
@@ -119,9 +116,8 @@ var searchMultiCmd = &cobra.Command{
 }
 
 var searchFilterCmd = &cobra.Command{
-	Use:   "filter",
+	Use:   "filter [searchFilter]",
 	Short: "Search By Filter",
-	Long:  `Usage: ldap-test-tool search filter [searchFilter]`,
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		action := "Search By Filter"
