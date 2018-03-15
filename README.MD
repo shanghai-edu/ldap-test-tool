@@ -366,10 +366,10 @@ HTTP API 部分使用 [beego](https://github.com/astaxie/beego) 框架
 # curl  http://127.0.0.1:8888/api/v1/ldap/search/user/qfeng
 {
   "user": {
-    "dn": "uid=qfeng,ou=people,dc=ecnu,dc=edu,dc=cn",
+    "dn": "uid=qfeng,ou=people,dc=example,dc=org",
     "attributes": {
       "cn": [
-        "冯骐测试"
+        "冯骐"
       ],
       "mail": [
         "qfeng"
