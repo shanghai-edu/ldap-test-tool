@@ -94,7 +94,7 @@ Use "ldap-test-tool [command] --help" for more information about a command.
 #### 认证
 ```
 ./ldap-test-tool auth -h
-Usage: ldap-test-tool auth [command]
+Auth Test
 
 Usage:
   ldap-test-tool auth [flags]
@@ -115,11 +115,10 @@ Use "ldap-test-tool auth [command] --help" for more information about a command.
 ##### 单用户测试
 命令行说明
 ```
-./ldap-test-tool auth single -h
-Usage: ldap-test-tool auth single [username] [password]
+Single Auth Test
 
 Usage:
-  ldap-test-tool auth single [flags]
+  ldap-test-tool auth single [username] [password] [flags]
 
 Flags:
   -h, --help   help for single
@@ -142,10 +141,10 @@ LDAP Auth Finished, Time Usage 47.821884ms
 命令行说明
 ```
 # ./ldap-test-tool auth multi -h
-Usage: ldap-test-tool auth multi [filename]
+Multi Auth Test
 
 Usage:
-  ldap-test-tool auth multi [flags]
+  ldap-test-tool auth multi [filename] [flags]
 
 Flags:
   -h, --help   help for multi
@@ -177,7 +176,7 @@ LDAP Multi Auth Finished, Time Usage 49.582994ms
 #### 查询
 ```
 # ./ldap-test-tool search -h
-Usage: ldap-test-tool search [command]
+Search Test
 
 Usage:
   ldap-test-tool search [flags]
@@ -201,10 +200,10 @@ Use "ldap-test-tool search [command] --help" for more information about a comman
 命令行说明
 ```
 # ./ldap-test-tool search user -h
-Usage: ldap-test-tool search user [username]
+Search Single User
 
 Usage:
-  ldap-test-tool search user [flags]
+  ldap-test-tool search user [username] [flags]
 
 Flags:
   -h, --help   help for user
@@ -234,10 +233,10 @@ PS: 如果属性有多值，将以 `;` 分割
 ##### LDAP Filter 查询
 ```
 # ./ldap-test-tool search filter -h
-Usage: ldap-test-tool search filter [searchFilter]
+Search By Filter
 
 Usage:
-  ldap-test-tool search filter [flags]
+  ldap-test-tool search filter [searchFilter] [flags]
 
 Flags:
   -h, --help   help for filter
@@ -281,10 +280,10 @@ LDAP Search By Filter Finished, Time Usage 46.071833ms
 命令行说明
 ```
 # ./ldap-test-tool search multi -h
-Usage: ldap-test-tool search multi [filename]
+Search Multi Users
 
 Usage:
-  ldap-test-tool search multi [flags]
+  ldap-test-tool search multi [filename] [flags]
 
 Flags:
   -f, --file   output search to users.csv, failed search to failed.csv
