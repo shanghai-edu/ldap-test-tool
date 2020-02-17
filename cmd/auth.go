@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/shanghai-edu/ldap-test-tool/g"
@@ -44,7 +45,7 @@ var authUserCmd = &cobra.Command{
 		_, err := models.Single_Auth(g.Config().Ldap, username, password)
 
 		if err != nil {
-			fmt.Printf("%s auth test failed: %s \n", username, err.Error())
+			fmt.Fprintf(os.Stderr, "%s auth test failed: %s \n", username, err.Error())
 			PrintEnd(action, startTime)
 			return
 		}
@@ -63,7 +64,7 @@ var authMultiCmd = &cobra.Command{
 		userlist := args[0]
 		authUsers, err := g.GetUsers(userlist)
 		if err != nil {
-			fmt.Printf("Read file %s failed: %s \n", userlist, err.Error())
+			fmt.Fprintf(os.Stderr, "Read file %s failed: %s \n", userlist, err.Error())
 			return
 		}
 		startTime := time.Now()
@@ -71,7 +72,7 @@ var authMultiCmd = &cobra.Command{
 
 		res, err := models.Multi_Auth(g.Config().Ldap, authUsers)
 		if err != nil {
-			fmt.Printf("Multi Auth  failed: %s \n", err.Error())
+			fmt.Fprintf(os.Stderr, "Multi Auth  failed: %s \n", err.Error())
 			PrintEnd(action, startTime)
 			return
 		}

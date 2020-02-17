@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-
+	"os"
 	"time"
 
 	"github.com/shanghai-edu/ldap-test-tool/g"
@@ -48,7 +48,7 @@ var searchUserCmd = &cobra.Command{
 		result, err := models.Single_Search_User(g.Config().Ldap, username)
 
 		if err != nil {
-			fmt.Printf("%s Search failed: %s \n", username, err.Error())
+			fmt.Fprintf(os.Stderr, "%s Search failed: %s \n", username, err.Error())
 			PrintEnd(action, startTime)
 			return
 		}
@@ -68,7 +68,7 @@ var searchMultiCmd = &cobra.Command{
 		userlist := args[0]
 		searchUsers, err := g.GetLines(userlist)
 		if err != nil {
-			fmt.Printf("Read file %s failed: %s \n", userlist, err.Error())
+			fmt.Fprintf(os.Stderr, "Read file %s failed: %s \n", userlist, err.Error())
 			return
 		}
 		startTime := time.Now()
@@ -77,20 +77,20 @@ var searchMultiCmd = &cobra.Command{
 		res, err := models.Multi_Search_User(g.Config().Ldap, searchUsers)
 
 		if err != nil {
-			fmt.Printf("Multi Search failed: %s \n", err.Error())
+			fmt.Fprintf(os.Stderr, "Multi Search failed: %s \n", err.Error())
 			PrintEnd(action, startTime)
 			return
 		}
 		if csvFile {
 			err = WriteUsersToCsv(res.Users, g.USERS_CSV)
 			if err != nil {
-				fmt.Printf("Open file %s failed: \n", g.USERS_CSV)
+				fmt.Fprintf(os.Stderr, "Open file %s failed: \n", g.USERS_CSV)
 				return
 			}
 			if len(res.Failed_Messages) > 0 {
 				err = WriteFailsToCsv(res.Failed_Messages, g.FAILED_CSV)
 				if err != nil {
-					fmt.Printf("Open file %s failed: \n", g.FAILED_CSV)
+					fmt.Fprintf(os.Stderr, "Open file %s failed: \n", g.FAILED_CSV)
 					return
 				}
 			}

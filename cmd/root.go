@@ -28,6 +28,7 @@ Complete documentation is available at github.com/shanghai-edu/ldap-test-tool`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println(`
   auth        Auth Test
+  check	      Check Cdap Connectivity
   help        Help about any command
   http        Enable a http server for ldap-test-tool
   search      Search Test
