@@ -79,6 +79,7 @@ Usage:
 
 Available Commands:
   auth        Auth Test
+  check       Check Cdap Connectivity
   help        Help about any command
   http        Enable a http server for ldap-test-tool
   search      Search Test
@@ -89,6 +90,12 @@ Flags:
   -h, --help            help for ldap-test-tool
 
 Use "ldap-test-tool [command] --help" for more information about a command.
+```
+
+#### 健康检查
+```
+# ./ldap-test-tool check
+Successed
 ```
 
 #### 认证
