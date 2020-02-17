@@ -20,7 +20,7 @@ var checkCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		_, err := models.Health_Check(g.Config().Ldap)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Failed: %v", err)
+			fmt.Fprintf(os.Stderr, "Failed: %v\n", err)
 			return
 		}
 		fmt.Println("Successed")
